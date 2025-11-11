@@ -8,6 +8,8 @@
       "version": "0.1.0",
       "dependencies": [
         "flutter",
+        "flutter_dotenv",
+        "google_generative_ai",
         "http",
         "provider",
         "shared_preferences"
@@ -40,6 +42,20 @@
         "stream_channel",
         "test_api",
         "vector_math"
+      ]
+    },
+    {
+      "name": "flutter_dotenv",
+      "version": "5.2.1",
+      "dependencies": [
+        "flutter"
+      ]
+    },
+    {
+      "name": "google_generative_ai",
+      "version": "0.4.7",
+      "dependencies": [
+        "http"
       ]
     },
     {

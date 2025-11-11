@@ -4,3 +4,7 @@
 
 # Teta - AI agents configuration
 .claude/agents/
+
+# Environment variables (contains API keys)
+*.env
+.env

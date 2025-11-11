@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'providers/auth_provider.dart';
 import 'models/chat_models.dart';
 import 'screens/login_screen.dart';
@@ -8,7 +9,12 @@ import 'screens/chat_screen.dart';
 import 'screens/chat_history_screen.dart';
 import 'screens/main_nav_screen.dart';
 
-void main() {
+Future<void> main() async {
+  // Ensure Flutter widgets are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  // Load the environment variables from the .env file
+  await dotenv.load(fileName: ".env");
+
   runApp(const MainApp());
 }
 

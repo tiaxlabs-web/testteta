@@ -1,59 +1,16 @@
-import 'dart:convert';
-import 'dart:async';
-import 'package:http/http.dart' as http;
 import '../models/chat_models.dart';
+import 'gemini_chat_service.dart';
 
 class ChatService {
-  static const String _baseUrl = 'https://api.openai.com/v1/chat/completions';
-
-  // In a real app, this would be stored securely (environment variables, secure storage, etc.)
-  // For demo purposes, we'll use a placeholder - replace with actual API key in production
-  static const String _apiKey = 'your-api-key-here';
+  final GeminiChatService _geminiService = GeminiChatService();
 
   Future<String> generateTarotResponse(String userMessage) async {
     try {
-      final response = await http.post(
-        Uri.parse(_baseUrl),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $_apiKey',
-        },
-        body: jsonEncode({
-          'model': 'gpt-3.5-turbo',
-          'messages': [
-            {
-              'role': 'system',
-              'content': '''You are a mystical and wise tarot reader AI. Your responses should:
-1. Be warm, compassionate, and mystical in tone
-2. Provide tarot-inspired guidance and wisdom
-3. Use mystical symbols and imagery (✨, 🔮, 🌙, ⭐) appropriately
-4. Give thoughtful insights while acknowledging the mystical nature of tarot
-5. Be encouraging and empowering
-6. Avoid making absolute predictions, instead offering perspectives and guidance
-7. Respond in a way that honors tarot traditions while being modern and accessible
-
-Example response style:
-"✨ Welcome, seeker of wisdom! The cards whisper that you're at a crossroads... 🌟 The energies surrounding your question suggest..."'''
-            },
-            {
-              'role': 'user',
-              'content': userMessage
-            }
-          ],
-          'max_tokens': 500,
-          'temperature': 0.8,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return data['choices'][0]['message']['content'];
-      } else {
-        // Fallback to a tarot-inspired response if API call fails
-        return _generateFallbackResponse(userMessage);
-      }
+      // Convert to the expected format for the AI service
+      final chatHistory = <ChatMessage>[];
+      return await _geminiService.getResponse(userMessage, chatHistory);
     } catch (e) {
-      // Fallback response in case of network issues or other errors
+      // Fallback response in case of API issues
       return _generateFallbackResponse(userMessage);
     }
   }
