@@ -232,7 +232,7 @@ class _ChatScreenState extends State<ChatScreen>
 
               // Messages area
               Expanded(
-                child: _currentConversation?.messages.isEmpty == true
+                child: _currentConversation == null || _currentConversation!.messages.isEmpty
                     ? _buildWelcomeMessage(user)
                     : _buildMessageList(),
               ),
