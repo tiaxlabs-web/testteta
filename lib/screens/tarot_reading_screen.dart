@@ -26,7 +26,7 @@ class _TarotReadingScreenState extends State<TarotReadingScreen>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 2000),
       vsync: this,
     );
     _scaleAnimation = CurvedAnimation(
@@ -36,7 +36,7 @@ class _TarotReadingScreenState extends State<TarotReadingScreen>
 
     _glowController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 4),
     )..repeat(reverse: true);
 
     _glowAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
@@ -59,7 +59,7 @@ class _TarotReadingScreenState extends State<TarotReadingScreen>
       _selectedCard = null;
     });
 
-    Future.delayed(const Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 1000), () {
       final random = Random();
       final card = TarotData.majorArcana[random.nextInt(TarotData.majorArcana.length)];
       final reversed = random.nextBool();

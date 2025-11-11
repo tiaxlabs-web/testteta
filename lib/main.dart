@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
+import 'models/chat_models.dart';
 import 'screens/login_screen.dart';
 import 'screens/tarot_reading_screen.dart';
+import 'screens/chat_screen.dart';
+import 'screens/chat_history_screen.dart';
+import 'screens/main_nav_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -22,7 +26,22 @@ class MainApp extends StatelessWidget {
           primarySwatch: Colors.deepPurple,
           useMaterial3: true,
         ),
-        home: const AuthWrapper(),
+        routes: {
+          '/': (context) => const AuthWrapper(),
+          '/login': (context) => const LoginScreen(),
+          '/main': (context) => const MainNavScreen(),
+          '/tarot': (context) => const TarotReadingScreen(),
+          '/chat': (context) => ChatScreen(),
+          '/chat_history': (context) => const ChatHistoryScreen(),
+        },
+        onGenerateRoute: (settings) {
+          if (settings.name == '/chat' && settings.arguments != null) {
+            return MaterialPageRoute(
+              builder: (context) => ChatScreen(conversation: settings.arguments as ChatConversation),
+            );
+          }
+          return null;
+        },
       ),
     );
   }
@@ -44,9 +63,9 @@ class AuthWrapper extends StatelessWidget {
           );
         }
 
-        // Show tarot reading screen if authenticated, otherwise show login
+        // Show main navigation if authenticated, otherwise show login
         if (authProvider.isAuthenticated) {
-          return const TarotReadingScreen();
+          return const MainNavScreen();
         } else {
           return const LoginScreen();
         }

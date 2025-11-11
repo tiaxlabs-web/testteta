@@ -57,7 +57,7 @@ class _MysticalParticlesState extends State<MysticalParticles>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 10),
     )..repeat();
 
     particles = List.generate(widget.particleCount, (index) {
@@ -65,7 +65,7 @@ class _MysticalParticlesState extends State<MysticalParticles>
         x: _random.nextDouble(),
         y: _random.nextDouble(),
         size: _random.nextDouble() * 20 + 10,
-        speed: _random.nextDouble() * 0.002 + 0.001,
+        speed: _random.nextDouble() * 0.0005 + 0.0002,
         opacity: _random.nextDouble() * 0.5 + 0.2,
         symbol: mysticalSymbols[_random.nextInt(mysticalSymbols.length)],
         color: [
